@@ -22,6 +22,28 @@ type TF10 struct {
 	V10 int64
 }
 
+type TF9 struct {
+	V1 int64
+	V2 int64
+	V3 int64
+	V4 int64
+	V5 int64
+	V6 int64
+	V7 int64
+	V8 int64
+	V9 int64
+}
+
+type TF7 struct {
+	V1 int64
+	V2 int64
+	V3 int64
+	V4 int64
+	V5 int64
+	V6 int64
+	V7 int64
+}
+
 type TF4 struct {
 	V1 int64
 	V2 int64
@@ -111,6 +133,58 @@ func TestValueTypeVsPtr(t *testing.T) {
 		}
 	}
 
+	vsf7 := make([]TF7, m40)
+	for idx := range vsf7 {
+		vsf7[idx].V1 = rand.Int63n(rnd)
+		vsf7[idx].V2 = rand.Int63n(rnd)
+		vsf7[idx].V3 = rand.Int63n(rnd)
+		vsf7[idx].V4 = rand.Int63n(rnd)
+		vsf7[idx].V5 = rand.Int63n(rnd)
+		vsf7[idx].V6 = rand.Int63n(rnd)
+		vsf7[idx].V7 = rand.Int63n(rnd)
+	}
+
+	vspf7 := make([]*TF7, m40)
+	for idx := range vspf7 {
+		vspf7[idx] = &TF7{
+			V1: vsf7[idx].V1,
+			V2: vsf7[idx].V2,
+			V3: vsf7[idx].V3,
+			V4: vsf7[idx].V4,
+			V5: vsf7[idx].V5,
+			V6: vsf7[idx].V6,
+			V7: vsf7[idx].V7,
+		}
+	}
+
+	vsf9 := make([]TF9, m40)
+	for idx := range vsf9 {
+		vsf9[idx].V1 = rand.Int63n(rnd)
+		vsf9[idx].V2 = rand.Int63n(rnd)
+		vsf9[idx].V3 = rand.Int63n(rnd)
+		vsf9[idx].V4 = rand.Int63n(rnd)
+		vsf9[idx].V5 = rand.Int63n(rnd)
+		vsf9[idx].V6 = rand.Int63n(rnd)
+		vsf9[idx].V7 = rand.Int63n(rnd)
+		vsf9[idx].V8 = rand.Int63n(rnd)
+		vsf9[idx].V9 = rand.Int63n(rnd)
+	}
+
+	vspf9 := make([]*TF9, m40)
+	for idx := range vspf9 {
+		vspf9[idx] = &TF9{
+			V1: vsf9[idx].V1,
+			V2: vsf9[idx].V2,
+			V3: vsf9[idx].V3,
+			V4: vsf9[idx].V4,
+			V5: vsf9[idx].V5,
+			V6: vsf9[idx].V6,
+			V7: vsf9[idx].V7,
+			V8: vsf9[idx].V8,
+			V9: vsf9[idx].V9,
+		}
+	}
+
 	vsf10 := make([]TF10, m40)
 	for idx := range vsf10 {
 		vsf10[idx].V1 = rand.Int63n(rnd)
@@ -146,6 +220,22 @@ func TestValueTypeVsPtr(t *testing.T) {
 
 	res2, diff := countPtrsF10(t, vspf10)
 	fmt.Printf("pf10 min %v res %v\n", diff, res)
+
+	require.Equal(t, res, res2)
+
+	res, diff = countValuesF9(t, vsf9)
+	fmt.Printf("vf9 min %v res %v\n", diff, res)
+
+	res2, diff = countPtrsF9(t, vspf9)
+	fmt.Printf("pf9 min %v res %v\n", diff, res)
+
+	require.Equal(t, res, res2)
+
+	res, diff = countValuesF7(t, vsf7)
+	fmt.Printf("vf7 min %v res %v\n", diff, res)
+
+	res2, diff = countPtrsF7(t, vspf7)
+	fmt.Printf("pf7 min %v res %v\n", diff, res)
 
 	require.Equal(t, res, res2)
 
@@ -189,6 +279,32 @@ func countValuesF10(t *testing.T, vs []TF10) (int, time.Duration) {
 
 	for idx := 0; idx < len(vs); idx++ {
 		res += countBiggerThenValuesF10(vs[idx], 100)
+	}
+
+	diff := time.Since(start)
+	return res, diff
+}
+
+func countValuesF9(t *testing.T, vs []TF9) (int, time.Duration) {
+
+	var res int
+	start := time.Now()
+
+	for idx := 0; idx < len(vs); idx++ {
+		res += countBiggerThenValuesF9(vs[idx], 100)
+	}
+
+	diff := time.Since(start)
+	return res, diff
+}
+
+func countValuesF7(t *testing.T, vs []TF7) (int, time.Duration) {
+
+	var res int
+	start := time.Now()
+
+	for idx := 0; idx < len(vs); idx++ {
+		res += countBiggerThenValuesF7(vs[idx], 100)
 	}
 
 	diff := time.Since(start)
@@ -254,6 +370,32 @@ func countPtrsF10(t *testing.T, vs []*TF10) (int, time.Duration) {
 
 	for idx := 0; idx < len(vs); idx++ {
 		res += countBiggerThenPtrF10(vs[idx], 100)
+	}
+
+	diff := time.Since(start)
+	return res, diff
+}
+
+func countPtrsF9(t *testing.T, vs []*TF9) (int, time.Duration) {
+
+	var res int
+	start := time.Now()
+
+	for idx := 0; idx < len(vs); idx++ {
+		res += countBiggerThenPtrF9(vs[idx], 100)
+	}
+
+	diff := time.Since(start)
+	return res, diff
+}
+
+func countPtrsF7(t *testing.T, vs []*TF7) (int, time.Duration) {
+
+	var res int
+	start := time.Now()
+
+	for idx := 0; idx < len(vs); idx++ {
+		res += countBiggerThenPtrF7(vs[idx], 100)
 	}
 
 	diff := time.Since(start)
@@ -349,6 +491,68 @@ func countBiggerThenValuesF10(v TF10, biggerThen int64) int {
 	return count
 }
 
+func countBiggerThenValuesF9(v TF9, biggerThen int64) int {
+
+	var count int
+	if v.V1 > biggerThen {
+		count++
+	}
+	if v.V2 > biggerThen {
+		count++
+	}
+	if v.V3 > biggerThen {
+		count++
+	}
+	if v.V4 > biggerThen {
+		count++
+	}
+	if v.V5 > biggerThen {
+		count++
+	}
+	if v.V6 > biggerThen {
+		count++
+	}
+	if v.V7 > biggerThen {
+
+		count++
+	}
+	if v.V8 > biggerThen {
+		count++
+	}
+	if v.V9 > biggerThen {
+		count++
+	}
+	return count
+}
+
+func countBiggerThenValuesF7(v TF7, biggerThen int64) int {
+
+	var count int
+	if v.V1 > biggerThen {
+		count++
+	}
+	if v.V2 > biggerThen {
+		count++
+	}
+	if v.V3 > biggerThen {
+		count++
+	}
+	if v.V4 > biggerThen {
+		count++
+	}
+	if v.V5 > biggerThen {
+		count++
+	}
+	if v.V6 > biggerThen {
+		count++
+	}
+	if v.V7 > biggerThen {
+
+		count++
+	}
+	return count
+}
+
 func countBiggerThenValuesF4(v TF4, biggerThen int64) int {
 
 	var count int
@@ -434,6 +638,66 @@ func countBiggerThenPtrF10(v *TF10, biggerThen int64) int {
 		count++
 	}
 	if v.V10 > biggerThen {
+		count++
+	}
+	return count
+}
+
+func countBiggerThenPtrF9(v *TF9, biggerThen int64) int {
+
+	var count int
+	if v.V1 > biggerThen {
+		count++
+	}
+	if v.V2 > biggerThen {
+		count++
+	}
+	if v.V3 > biggerThen {
+		count++
+	}
+	if v.V4 > biggerThen {
+		count++
+	}
+	if v.V5 > biggerThen {
+		count++
+	}
+	if v.V6 > biggerThen {
+		count++
+	}
+	if v.V7 > biggerThen {
+		count++
+	}
+	if v.V8 > biggerThen {
+		count++
+	}
+	if v.V9 > biggerThen {
+		count++
+	}
+	return count
+}
+
+func countBiggerThenPtrF7(v *TF7, biggerThen int64) int {
+
+	var count int
+	if v.V1 > biggerThen {
+		count++
+	}
+	if v.V2 > biggerThen {
+		count++
+	}
+	if v.V3 > biggerThen {
+		count++
+	}
+	if v.V4 > biggerThen {
+		count++
+	}
+	if v.V5 > biggerThen {
+		count++
+	}
+	if v.V6 > biggerThen {
+		count++
+	}
+	if v.V7 > biggerThen {
 		count++
 	}
 	return count
