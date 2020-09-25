@@ -216,58 +216,58 @@ func TestValueTypeVsPtr(t *testing.T) {
 	}
 
 	res, diff := countValuesF10(t, vsf10)
-	fmt.Printf("vf10 min %v res %v\n", diff, res)
+	fmt.Printf("vf10 %v\n", diff)
 
 	res2, diff := countPtrsF10(t, vspf10)
-	fmt.Printf("pf10 min %v res %v\n", diff, res)
+	fmt.Printf("pf10 %v\n", diff)
 
 	require.Equal(t, res, res2)
 
 	res, diff = countValuesF9(t, vsf9)
-	fmt.Printf("vf9 min %v res %v\n", diff, res)
+	fmt.Printf("vf9 %v\n", diff)
 
 	res2, diff = countPtrsF9(t, vspf9)
-	fmt.Printf("pf9 min %v res %v\n", diff, res)
+	fmt.Printf("pf9 %v\n", diff)
 
 	require.Equal(t, res, res2)
 
 	res, diff = countValuesF7(t, vsf7)
-	fmt.Printf("vf7 min %v res %v\n", diff, res)
+	fmt.Printf("vf7 %v\n", diff)
 
 	res2, diff = countPtrsF7(t, vspf7)
-	fmt.Printf("pf7 min %v res %v\n", diff, res)
+	fmt.Printf("pf7 %v\n", diff)
 
 	require.Equal(t, res, res2)
 
 	res, diff = countValuesF4(t, vsf4)
-	fmt.Printf("vf4 min %v res %v\n", diff, res)
+	fmt.Printf("vf4 %v\n", diff)
 
 	res2, diff = countPtrsF4(t, vspf4)
-	fmt.Printf("pf4 min %v res %v\n", diff, res)
+	fmt.Printf("pf4 %v\n", diff)
 
 	require.Equal(t, res, res2)
 
 	res, diff = countValuesF3(t, vsf3)
-	fmt.Printf("vf3 min %v res %v\n", diff, res)
+	fmt.Printf("vf3 min %v\n", diff)
 
 	res2, diff = countPtrsF3(t, vspf3)
-	fmt.Printf("pf3 min %v res %v\n", diff, res)
+	fmt.Printf("pf3 %v\n", diff)
 
 	require.Equal(t, res, res2)
 
 	res, diff = countValuesF2(t, vsf2)
-	fmt.Printf("vf2 min %v res %v\n", diff, res)
+	fmt.Printf("vf2 %v\n", diff)
 
 	res2, diff = countPtrsF2(t, vspf2)
-	fmt.Printf("pf2 min %v res %v\n", diff, res)
+	fmt.Printf("pf2 %v\n", diff)
 
 	require.Equal(t, res, res2)
 
 	res, diff = countValuesF1(t, vsf1)
-	fmt.Printf("vf1 min %v res %v\n", diff, res)
+	fmt.Printf("vf1 %v\n", diff)
 
 	res2, diff = countPtrsF1(t, vspf1)
-	fmt.Printf("pf1 min %v res %v\n", diff, res)
+	fmt.Printf("pf1 %v\n", diff)
 
 	require.Equal(t, res, res2)
 }
