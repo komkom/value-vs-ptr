@@ -1,5 +1,5 @@
 # value-vs-ptr
-some benchmarks comparing performace for passing to functions by value and be pointer
+Some benchmarks comparing performace for passing to functions by value and be pointer
 
 ```
 vf10 109.715966ms
