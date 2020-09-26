@@ -19,10 +19,10 @@ pf1 7.534411ms
 ```
 
 ```
-vf(n) = pass n field struct by value
+vf(n) = pass n fields struct by value
 ```
 ```
-pf(n) = pass n field struct by pointer 
+pf(n) = pass n fields struct by pointer 
 ```
 
 On my machine passing by value seems to be faster up the a struct of 9 fields. But for 10 fields passing by pointer is about 50% faster.
